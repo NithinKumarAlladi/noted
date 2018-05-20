@@ -1,9 +1,18 @@
 import React from 'react';
+import './App.css';
 
-const App = () => (
-    <div className="App" >
-        Test
-    </div>
-);
+import Navbar from './Navbar';
+import ContentDisplay from './ContentDisplay';
 
-export default App;
+export default function App(props) {
+    const { store } = props;
+
+    return (
+        <div className="App">
+            <div className="app-grid" >
+                <Navbar className="col-navbar" store={store} />
+                <ContentDisplay store={store} />
+            </div>
+        </div>
+    );
+}

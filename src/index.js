@@ -1,6 +1,21 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import App from './App';
+import { createStore } from 'redux';
 
-// eslint-disable-next-line react/jsx-filename-extension
-ReactDOM.render(<App />, document.getElementById('root'));
+import App from './App';
+import appReducer from './reducers';
+
+/* eslint-disable no-underscore-dangle */
+const store = createStore(
+    appReducer,
+    window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(),
+);
+/* eslint-enable */
+
+const render = () => {
+    // eslint-disable-next-line react/jsx-filename-extension
+    ReactDOM.render(<App store={store} />, document.getElementById('root'));
+};
+
+store.subscribe(render);
+render();
