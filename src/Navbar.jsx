@@ -6,24 +6,28 @@ export default function Navbar(props) {
 
     return (
         <div className={`${className} navbar`} >
-            <div className="card">
+            <div className="card new-note">
                 <button
-                    className="new-note-btn"
+                    className="btn new-note-btn"
                     onClick={() => { store.dispatch({ type: 'DISPLAY_NEW' }); }}
                 >
                     New Note
                 </button>
             </div>
             <div className="card notes">
-                <ul className="notes-list">
+                <div className="notes-list">
                     {
                         notes.map(note => (
-                            <li key={note.id} onClick={() => { store.dispatch({ type: 'DISPLAY_VIEW', pageId: note.id }); }}>
+                            <div
+                                key={note.id}
+                                className="btn notes-list-item"
+                                onClick={() => { store.dispatch({ type: 'DISPLAY_VIEW', pageId: note.id }); }}
+                            >
                                 {note.title}
-                            </li>
+                            </div>
                         ))
                     }
-                </ul>
+                </div>
             </div>
         </div>
     );
