@@ -1,43 +1,50 @@
 import { combineReducers } from 'redux';
-
-const defaultNotesState = [
+const defaultNoteState = [
     {
-        id: '1',
-        title: 'Some Title',
-        page: 'Some Title - Some really long content',
-    },
-    {
-        id: '2',
-        title: 'Some Other Title',
-        page: 'Some Other Title - Some really long content',
-    },
-    {
-        id: '3',
-        title: 'Another title',
-        page: 'Another title - Some really long content',
-    },
-    {
-        id: '4',
-        title: 'Yet another title',
-        page: 'Yet another title - Some really long content',
-    },
-];
-
-function notesReducer(notesState = defaultNotesState, action) {
-    if (action.type === 'Test') {
-        return notesState;
+    id : 1,
+    title : "this is title",
+    page : "this is page content",
+    }
+]
+function notesReducer(notesState = defaultNoteState, action) {
+    if(action.type === 'SAVE_NEW_NOTE'){
+        return[
+            ...notesState,
+            {
+                id : Date.now(),
+                title : action.title,
+                page : action.content,
+            }
+        ]
+    }
+    if(action.type === "SAVE_EDITED_NOTE"){
+       const [currentNote] = notesState.filter(note => note.id === action.id);
+       currentNote.title = action.title;
+       currentNote.page = action.content;
     }
 
     return notesState;
 }
 
 function displayReducer(displayState = { type: 'empty' }, action) {
+    if(action.type === 'SAVE_NEW_NOTE'){
+        return { type: 'empty' };
+    }
+
+    if(action.type === 'SAVE_EDITED_NOTE'){
+        return { type: 'empty' };
+    }
+
     if (action.type === 'DISPLAY_NEW') {
         return { type: 'new' };
     }
 
     if (action.type === 'DISPLAY_VIEW') {
         return { type: 'view', pageId: action.pageId };
+    }
+
+    if(action.type === 'DISPLAY_EDIT'){
+        return {type: 'edit', pageId: action.pageId };
     }
 
     return displayState;

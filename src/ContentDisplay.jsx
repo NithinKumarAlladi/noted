@@ -17,3 +17,4 @@ export default function ContentDisplay(props) {
             return <Page store={store} isEmpty />;
     }
 }
+

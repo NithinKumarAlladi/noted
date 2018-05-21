@@ -21,7 +21,7 @@ export default function Navbar(props) {
                             <div
                                 key={note.id}
                                 className="btn notes-list-item"
-                                onClick={() => { store.dispatch({ type: 'DISPLAY_VIEW', pageId: note.id }); }}
+                                onClick={() => { store.dispatch({ type: 'DISPLAY_EDIT', pageId: note.id }); }}
                             >
                                 {note.title}
                             </div>
