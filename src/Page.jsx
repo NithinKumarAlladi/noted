@@ -36,22 +36,26 @@ export default function Page(props) {
 
     return (
         (isEditable)
-            ? <div className="card page" >
-                <textarea id="titleInput">
-                    {currentNote.title}
-                </textarea>
-                <br />
-                <textarea id="contentInput">
-                    {currentNote.page}
-                </textarea>
-                <button onClick={()=>{
-                    const inputTitle = document.getElementById("titleInput").value;
-                    const inputContent = document.getElementById("contentInput").value;
-                    store.dispatch({ type: 'SAVE_EDITED_NOTE', id: currentNote.id, title: inputTitle, content: inputContent });
-                }}>
-                    Save
-                </button>
-            </div>
-            : <div className="card page" ><div className="viewPage">{currentNote.page}</div></div>
+            ?(
+                <div className="card page" >
+                    <textarea id="titleInput">
+                        {currentNote.title}
+                    </textarea>
+                    <br />
+                    <textarea id="contentInput">
+                        {currentNote.page}
+                    </textarea>
+                    <button onClick={() => {
+                        const inputTitle = document.getElementById("titleInput").value;
+                        const inputContent = document.getElementById("contentInput").value;
+                        store.dispatch({ type: 'SAVE_EDITED_NOTE', pageId: currentNote.id, title: inputTitle, content: inputContent });
+                    }}>
+                        Save
+                    </button>
+                </div>
+            )
+            : <div className="card page viewPage" >{currentNote.page}</div>
     );
 }
+
+

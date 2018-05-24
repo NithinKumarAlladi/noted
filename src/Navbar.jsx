@@ -1,5 +1,6 @@
 import React from 'react';
 
+
 export default function Navbar(props) {
     const { store, className } = props;
     const { notes } = store.getState();
@@ -21,9 +22,13 @@ export default function Navbar(props) {
                             <div
                                 key={note.id}
                                 className="btn notes-list-item"
-                                onClick={() => { store.dispatch({ type: 'DISPLAY_EDIT', pageId: note.id }); }}
+                                onClick={() => { store.dispatch({ type: 'DISPLAY_VIEW', pageId: note.id }); }}
                             >
-                                {note.title}
+                                <span className="note-title">{note.title}</span>
+                                <div className="note-actions">
+                                    <img class = "icons" onClick={(e) => {e.stopPropagation(); store.dispatch({ type: 'DISPLAY_EDIT', pageId: note.id, }); }} src="/icons/edit.svg"/>
+                                    <img class = "icons" onClick={(e) => {e.stopPropagation(); store.dispatch({ type: 'DELETE_NOTE', pageId: note.id, }); }} src="/icons/trash-alt.svg"/>
+                                </div>
                             </div>
                         ))
                     }

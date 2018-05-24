@@ -1,15 +1,18 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { createStore } from 'redux';
+import { createStore, compose } from 'redux';
+import persistState from 'redux-localstorage';
+
 
 import App from './App';
 import appReducer from './reducers';
 
-/* eslint-disable no-underscore-dangle */
-const store = createStore(
-    appReducer,
-    window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(),
+const enhancer = compose(
+    persistState('notes'),
+    window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
 );
+/* eslint-disable no-underscore-dangle */
+const store = createStore( appReducer, enhancer );
 /* eslint-enable */
 
 const render = () => {
